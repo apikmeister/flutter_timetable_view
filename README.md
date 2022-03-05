@@ -2,6 +2,11 @@
 
 Timetable Widget Package for Flutter
 
+# iqfareez's changes
+
+- Add optional paremeter `showMinutes` in `Utils.hourFormatter` function.
+- Using widget class instead of function returning widget in `lib/src/views/timetable_view.dart`.
+
 # Features
 
 ## Image
@@ -10,7 +15,7 @@ Timetable Widget Package for Flutter
 
 ## Video Recording
 
-<img src="https://user-images.githubusercontent.com/12509392/75619433-f0cb7180-5bbe-11ea-8644-11d7277b2e29.gif" height="440" />  <img src="https://user-images.githubusercontent.com/12509392/75619441-0476d800-5bbf-11ea-854b-4e9ec653f551.gif" height="440" />
+<img src="https://user-images.githubusercontent.com/12509392/75619433-f0cb7180-5bbe-11ea-8644-11d7277b2e29.gif" height="440" /> <img src="https://user-images.githubusercontent.com/12509392/75619441-0476d800-5bbf-11ea-854b-4e9ec653f551.gif" height="440" />
 
 # Install
 

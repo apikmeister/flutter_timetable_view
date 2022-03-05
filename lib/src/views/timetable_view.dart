@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_timetable_view/src/models/lane_events.dart';
-import 'package:flutter_timetable_view/src/styles/timetable_style.dart';
+import 'package:flutter_timetable_view/flutter_timetable_view.dart';
 import 'package:flutter_timetable_view/src/utils/utils.dart';
 import 'package:flutter_timetable_view/src/views/controller/timetable_view_controller.dart';
 import 'package:flutter_timetable_view/src/views/diagonal_scroll_view.dart';
@@ -38,49 +39,82 @@ class _TimetableViewState extends State<TimetableView>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _buildCorner(),
-        _buildMainContent(context),
-        _buildTimelineList(context),
-        _buildLaneList(context),
+        Corner(
+          timetableStyle: widget.timetableStyle,
+        ),
+        MainContent(
+            laneEventsList: widget.laneEventsList,
+            timetableStyle: widget.timetableStyle,
+            onScroll: onScroll,
+            horizontalPixelsStream: horizontalPixelsStream,
+            verticalPixelsStream: verticalPixelsStream),
+        TimelineList(
+            timetableStyle: widget.timetableStyle,
+            verticalScrollController: verticalScrollController),
+        LaneList(
+            timetableStyle: widget.timetableStyle,
+            horizontalScrollController: horizontalScrollController,
+            laneEventsList: widget.laneEventsList),
       ],
     );
   }
+}
 
-  Widget _buildCorner() {
+class Corner extends StatelessWidget {
+  const Corner({Key? key, required this.timetableStyle}) : super(key: key);
+  final TimetableStyle timetableStyle;
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       left: 0,
       top: 0,
       child: SizedBox(
-        width: widget.timetableStyle.timeItemWidth,
-        height: widget.timetableStyle.laneHeight,
+        width: timetableStyle.timeItemWidth,
+        height: timetableStyle.laneHeight,
         child: DecoratedBox(
-          decoration: BoxDecoration(color: widget.timetableStyle.cornerColor),
+          decoration: BoxDecoration(color: timetableStyle.cornerColor),
         ),
       ),
     );
   }
+}
 
-  Widget _buildMainContent(BuildContext context) {
+class MainContent extends StatelessWidget {
+  const MainContent(
+      {Key? key,
+      required this.laneEventsList,
+      required this.timetableStyle,
+      required this.onScroll,
+      required this.horizontalPixelsStream,
+      required this.verticalPixelsStream})
+      : super(key: key);
+  final TimetableStyle timetableStyle;
+  final List<LaneEvents> laneEventsList;
+  final Function(dynamic) onScroll;
+  final StreamController<dynamic> horizontalPixelsStream;
+  final StreamController<dynamic> verticalPixelsStream;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: widget.timetableStyle.timeItemWidth,
-        top: widget.timetableStyle.laneHeight,
+        left: timetableStyle.timeItemWidth,
+        top: timetableStyle.laneHeight,
       ),
       child: DiagonalScrollView(
         horizontalPixelsStreamController: horizontalPixelsStream,
         verticalPixelsStreamController: verticalPixelsStream,
         onScroll: onScroll,
-        maxWidth:
-            widget.laneEventsList.length * widget.timetableStyle.laneWidth,
-        maxHeight:
-            (widget.timetableStyle.endHour - widget.timetableStyle.startHour) *
-                widget.timetableStyle.timeItemHeight,
+        maxWidth: laneEventsList.length * timetableStyle.laneWidth,
+        maxHeight: (timetableStyle.endHour - timetableStyle.startHour) *
+            timetableStyle.timeItemHeight,
         child: IntrinsicHeight(
           child: Row(
-            children: widget.laneEventsList.map((laneEvents) {
+            children: laneEventsList.map((laneEvents) {
               return LaneView(
                 events: laneEvents.events,
-                timetableStyle: widget.timetableStyle,
+                timetableStyle: timetableStyle,
               );
             }).toList(),
           ),
@@ -88,38 +122,50 @@ class _TimetableViewState extends State<TimetableView>
       ),
     );
   }
+}
 
-  Widget _buildTimelineList(BuildContext context) {
+class TimelineList extends StatelessWidget {
+  const TimelineList(
+      {Key? key,
+      required this.timetableStyle,
+      required this.verticalScrollController})
+      : super(key: key);
+
+  final TimetableStyle timetableStyle;
+  final ScrollController verticalScrollController;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      width: widget.timetableStyle.timeItemWidth,
-      padding: EdgeInsets.only(top: widget.timetableStyle.laneHeight),
-      color: widget.timetableStyle.timelineColor,
+      width: timetableStyle.timeItemWidth,
+      padding: EdgeInsets.only(top: timetableStyle.laneHeight),
+      color: timetableStyle.timelineColor,
       child: ListView(
         physics: const ClampingScrollPhysics(),
         controller: verticalScrollController,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         children: [
-          for (var i = widget.timetableStyle.startHour;
-              i < widget.timetableStyle.endHour;
+          for (var i = timetableStyle.startHour;
+              i < timetableStyle.endHour;
               i += 1)
             i
         ].map((hour) {
           return Container(
-            height: widget.timetableStyle.timeItemHeight,
+            height: timetableStyle.timeItemHeight,
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  color: widget.timetableStyle.timelineBorderColor,
+                  color: timetableStyle.timelineBorderColor,
                   width: 0,
                 ),
               ),
-              color: widget.timetableStyle.timelineItemColor,
+              color: timetableStyle.timelineItemColor,
             ),
             child: Text(
-              Utils.hourFormatter(hour, 0),
-              style: TextStyle(color: widget.timetableStyle.timeItemTextColor),
+              Utils.hourFormatter(hour, 0, false),
+              style: TextStyle(color: timetableStyle.timeItemTextColor),
               textAlign: TextAlign.center,
             ),
           );
@@ -127,19 +173,33 @@ class _TimetableViewState extends State<TimetableView>
       ),
     );
   }
+}
 
-  Widget _buildLaneList(BuildContext context) {
+class LaneList extends StatelessWidget {
+  const LaneList(
+      {Key? key,
+      required this.timetableStyle,
+      required this.horizontalScrollController,
+      required this.laneEventsList})
+      : super(key: key);
+
+  final TimetableStyle timetableStyle;
+  final ScrollController horizontalScrollController;
+  final List<LaneEvents> laneEventsList;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      color: widget.timetableStyle.laneColor,
-      height: widget.timetableStyle.laneHeight,
-      padding: EdgeInsets.only(left: widget.timetableStyle.timeItemWidth),
+      color: timetableStyle.laneColor,
+      height: timetableStyle.laneHeight,
+      padding: EdgeInsets.only(left: timetableStyle.timeItemWidth),
       child: ListView(
         scrollDirection: Axis.horizontal,
         physics: const ClampingScrollPhysics(),
         controller: horizontalScrollController,
         shrinkWrap: true,
-        children: widget.laneEventsList.map((laneEvents) {
+        children: laneEventsList.map((laneEvents) {
           return Container(
             width: laneEvents.lane.width,
             height: laneEvents.lane.height,

@@ -28,8 +28,10 @@ class Utils {
         _addLeadingZero(day);
   }
 
-  static String hourFormatter(int hour, int minute) {
-    return _addLeadingZero(hour) + ':' + _addLeadingZero(minute);
+  static String hourFormatter(int hour, int minute, [bool showMinutes = true]) {
+    return showMinutes
+        ? _addLeadingZero(hour) + ':' + _addLeadingZero(minute)
+        : _addLeadingZero(hour);
   }
 
   static Widget eventText(
