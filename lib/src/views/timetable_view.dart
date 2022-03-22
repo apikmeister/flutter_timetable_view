@@ -201,7 +201,7 @@ class LaneList extends StatelessWidget {
         shrinkWrap: true,
         children: laneEventsList.map((laneEvents) {
           return Container(
-            width: laneEvents.lane.width,
+            width: timetableStyle.laneWidth,
             height: laneEvents.lane.height,
             color: laneEvents.lane.backgroundColor,
             child: Center(
