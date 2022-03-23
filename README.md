@@ -6,6 +6,7 @@ Timetable Widget Package for Flutter
 
 - Add optional paremeter `showMinutes` in `Utils.hourFormatter` function.
 - Using widget class instead of function returning widget in `lib/src/views/timetable_view.dart`.
+- Top row width is following the lane width. dbe733fe3fbdd5d6f3a7f7d47a72b23a098bb953
 
 # Features
 
