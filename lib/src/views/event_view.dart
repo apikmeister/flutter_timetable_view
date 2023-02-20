@@ -13,8 +13,7 @@ class EventView extends StatelessWidget {
     Key? key,
     required this.event,
     required this.timetableStyle,
-  })  : 
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +24,24 @@ class EventView extends StatelessWidget {
       width: timetableStyle.laneWidth,
       child: GestureDetector(
         onTap: event.onTap,
-        child: Container(
-          decoration: event.decoration ??
-              (BoxDecoration(color: event.backgroundColor)),
-          margin: event.margin,
-          padding: event.padding,
-          child: (Utils.eventText)(
-            event,
-            context,
-            math.max(
-                0.0,
-                height() -
-                    (event.padding.top) -
-                    (event.padding.bottom)),
-            math.max(
-                0.0,
-                timetableStyle.laneWidth -
-                    (event.padding.left ) -
-                    (event.padding.right )),
+        child: Hero(
+          tag: event.heroTag ?? UniqueKey(),
+          child: Container(
+            decoration: event.decoration ??
+                (BoxDecoration(color: event.backgroundColor)),
+            margin: event.margin,
+            padding: event.padding,
+            child: (Utils.eventText)(
+              event,
+              context,
+              math.max(
+                  0.0, height() - (event.padding.top) - (event.padding.bottom)),
+              math.max(
+                  0.0,
+                  timetableStyle.laneWidth -
+                      (event.padding.left) -
+                      (event.padding.right)),
+            ),
           ),
         ),
       ),

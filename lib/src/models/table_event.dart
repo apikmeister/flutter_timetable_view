@@ -20,6 +20,8 @@ class TableEvent {
 
   final TextStyle textStyle;
 
+  final String? heroTag;
+
   TableEvent({
     required this.title,
     required this.start,
@@ -30,6 +32,6 @@ class TableEvent {
     this.decoration,
     this.backgroundColor: const Color(0xCC2196F3),
     this.textStyle: const TextStyle(color: Colors.white),
-  })  : 
-        assert(end.isAfter(start));
+    this.heroTag,
+  }) : assert(end.isAfter(start));
 }
