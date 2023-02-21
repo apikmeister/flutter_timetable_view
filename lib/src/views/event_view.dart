@@ -25,6 +25,8 @@ class EventView extends StatelessWidget {
       child: GestureDetector(
         onTap: event.onTap,
         child: Hero(
+          // not possible to use https://github.com/williambarreiro/clean-code-dart-en#when-possible-use-default-parameters-instead-of-short-circuiting-or-conditionals
+          // because of UniqueKey is not constant
           tag: event.heroTag ?? UniqueKey(),
           child: Container(
             decoration: event.decoration ??
