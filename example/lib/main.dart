@@ -47,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TableEvent(
             title: 'An event 2',
+            subtitle: 'A subtitle',
             start: TableEventTime(hour: 12, minute: 0),
             end: TableEventTime(hour: 13, minute: 20),
           ),
