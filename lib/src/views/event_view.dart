@@ -33,7 +33,7 @@ class EventView extends StatelessWidget {
                 (BoxDecoration(color: event.backgroundColor)),
             margin: event.margin,
             padding: event.padding,
-            child: (Utils.eventText)(
+            child: Utils.eventText(
               event,
               context,
               math.max(
@@ -43,6 +43,7 @@ class EventView extends StatelessWidget {
                   timetableStyle.laneWidth -
                       (event.padding.left) -
                       (event.padding.right)),
+              subtitle: event.subtitle,
             ),
           ),
         ),

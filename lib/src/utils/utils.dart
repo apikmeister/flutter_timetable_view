@@ -38,19 +38,22 @@ class Utils {
     TableEvent event,
     BuildContext context,
     double height,
-    double width,
-  ) {
+    double width, {
+    String? subtitle,
+  }) {
     List<TextSpan> text = [
       TextSpan(
         text: event.title,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       TextSpan(
-        text: ' ' +
-            Utils.hourFormatter(event.start.hour, event.start.minute) +
-            ' - ' +
-            Utils.hourFormatter(event.end.hour, event.end.minute) +
-            '\n\n',
+        text: subtitle != null
+            ? ' $subtitle\n\n'
+            : ' ' +
+                Utils.hourFormatter(event.start.hour, event.start.minute) +
+                ' - ' +
+                Utils.hourFormatter(event.end.hour, event.end.minute) +
+                '\n\n',
       ),
     ];
 

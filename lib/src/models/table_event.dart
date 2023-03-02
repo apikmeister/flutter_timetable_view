@@ -4,6 +4,9 @@ import 'package:flutter_timetable_view/src/models/table_event_time.dart';
 class TableEvent {
   final String title;
 
+  // Default to startTime - endTime
+  final String? subtitle;
+
   final TableEventTime start;
 
   final TableEventTime end;
@@ -26,6 +29,7 @@ class TableEvent {
     required this.title,
     required this.start,
     required this.end,
+    this.subtitle,
     this.padding = const EdgeInsets.all(10),
     this.margin,
     this.onTap,

@@ -8,6 +8,7 @@ Timetable Widget Package for Flutter
 - Using widget class instead of a function returning widget in `lib/src/views/timetable_view.dart`.
 - Top row width is following the lane width. dbe733fe3fbdd5d6f3a7f7d47a72b23a098bb953
 - Added `heroTag` to `TableEvent`, and `EventView` now has a `Hero`.
+- Added `subtitle` property that can replace the default time in `EventView`.
 
 _Contents below are from the original README.md_
 
