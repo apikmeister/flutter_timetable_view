@@ -21,13 +21,12 @@ class DiagonalScrollView extends StatefulWidget {
     Key? key,
     required this.child,
     this.onScroll,
-    this.maxWidth: double.infinity,
-    this.maxHeight: double.infinity,
-    this.flingVelocityReduction: 1,
+    this.maxWidth = double.infinity,
+    this.maxHeight = double.infinity,
+    this.flingVelocityReduction = 1,
     this.horizontalPixelsStreamController,
     this.verticalPixelsStreamController,
-  })  : 
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _DiagonalScrollViewState createState() => _DiagonalScrollViewState();
@@ -73,7 +72,7 @@ class _DiagonalScrollViewState extends State<DiagonalScrollView>
 
   Offset _rectifyChildPosition({
     required Offset position,
-    Offset offset: const Offset(0, 0),
+    Offset offset = const Offset(0, 0),
   }) {
     Offset containerScaled = Offset(containerWidth, containerHeight);
     double x = position.dx;
