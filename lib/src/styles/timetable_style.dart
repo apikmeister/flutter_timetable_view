@@ -5,21 +5,11 @@ class TimetableStyle {
 
   final int endHour;
 
-  final Color laneColor;
-
-  final Color cornerColor;
-
   final Color timeItemTextColor;
-
-  final Color timelineColor;
-
-  final Color timelineItemColor;
 
   final Color mainBackgroundColor;
 
   final Color timelineBorderColor;
-
-  final Color decorationLineBorderColor;
 
   final double laneWidth;
 
@@ -35,19 +25,12 @@ class TimetableStyle {
 
   final double decorationLineDashSpaceWidth;
 
-  final bool visibleTimeBorder;
-
-  final bool visibleDecorationBorder;
+  final ImageProvider? mainBackgroundImage;
 
   const TimetableStyle({
     this.startHour = 0,
     this.endHour = 24,
-    this.laneColor = Colors.white,
-    this.cornerColor = Colors.white,
-    this.timelineColor = Colors.white,
-    this.timelineItemColor = Colors.white,
     this.mainBackgroundColor = Colors.white,
-    this.decorationLineBorderColor = const Color(0x1A000000),
     this.timelineBorderColor = const Color(0x1A000000),
     this.timeItemTextColor = Colors.blue,
     this.laneWidth = 300,
@@ -57,7 +40,6 @@ class TimetableStyle {
     this.decorationLineHeight = 20,
     this.decorationLineDashWidth = 9,
     this.decorationLineDashSpaceWidth = 4,
-    this.visibleTimeBorder = true,
-    this.visibleDecorationBorder = false,
+    this.mainBackgroundImage,
   });
 }
