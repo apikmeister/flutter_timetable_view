@@ -39,22 +39,36 @@ class _TimetableViewState extends State<TimetableView>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: widget.timetableStyle.mainBackgroundColor,
+            image: widget.timetableStyle.mainBackgroundImage != null
+                ? DecorationImage(
+                    image: widget.timetableStyle.mainBackgroundImage!,
+                    fit: BoxFit.cover,
+                  )
+                : null,
+          ),
+        ),
         Corner(
           timetableStyle: widget.timetableStyle,
         ),
         MainContent(
-            laneEventsList: widget.laneEventsList,
-            timetableStyle: widget.timetableStyle,
-            onScroll: onScroll,
-            horizontalPixelsStream: horizontalPixelsStream,
-            verticalPixelsStream: verticalPixelsStream),
+          laneEventsList: widget.laneEventsList,
+          timetableStyle: widget.timetableStyle,
+          onScroll: onScroll,
+          horizontalPixelsStream: horizontalPixelsStream,
+          verticalPixelsStream: verticalPixelsStream,
+        ),
         TimelineList(
-            timetableStyle: widget.timetableStyle,
-            verticalScrollController: verticalScrollController),
+          timetableStyle: widget.timetableStyle,
+          verticalScrollController: verticalScrollController,
+        ),
         LaneList(
-            timetableStyle: widget.timetableStyle,
-            horizontalScrollController: horizontalScrollController,
-            laneEventsList: widget.laneEventsList),
+          timetableStyle: widget.timetableStyle,
+          horizontalScrollController: horizontalScrollController,
+          laneEventsList: widget.laneEventsList,
+        ),
       ],
     );
   }
@@ -72,9 +86,6 @@ class Corner extends StatelessWidget {
       child: SizedBox(
         width: timetableStyle.timeItemWidth,
         height: timetableStyle.laneHeight,
-        child: DecoratedBox(
-          decoration: BoxDecoration(color: timetableStyle.cornerColor),
-        ),
       ),
     );
   }
@@ -140,7 +151,6 @@ class TimelineList extends StatelessWidget {
       alignment: Alignment.topLeft,
       width: timetableStyle.timeItemWidth,
       padding: EdgeInsets.only(top: timetableStyle.laneHeight),
-      color: timetableStyle.timelineColor,
       child: ListView(
         physics: const ClampingScrollPhysics(),
         controller: verticalScrollController,
@@ -161,7 +171,6 @@ class TimelineList extends StatelessWidget {
                   width: 0,
                 ),
               ),
-              color: timetableStyle.timelineItemColor,
             ),
             child: Text(
               Utils.hourFormatter(hour, 0, false),
@@ -191,7 +200,6 @@ class LaneList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      color: timetableStyle.laneColor,
       height: timetableStyle.laneHeight,
       padding: EdgeInsets.only(left: timetableStyle.timeItemWidth),
       child: ListView(
@@ -203,7 +211,6 @@ class LaneList extends StatelessWidget {
           return Container(
             width: timetableStyle.laneWidth,
             height: laneEvents.lane.height,
-            color: laneEvents.lane.backgroundColor,
             child: Center(
               child: Text(
                 laneEvents.lane.name,
