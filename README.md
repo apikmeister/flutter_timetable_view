@@ -2,6 +2,11 @@
 
 Timetable Widget Package for Flutter
 
+# apik's changes
+
+- Use `container` within `stack` to set the background for timetable. (color/image)
+- Remove `unnecessary` properties from class.
+
 # iqfareez's changes
 
 - Add optional parameter `showMinutes` in `Utils.hourFormatter` function.
