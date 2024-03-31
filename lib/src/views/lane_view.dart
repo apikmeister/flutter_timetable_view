@@ -12,8 +12,7 @@ class LaneView extends StatelessWidget {
     Key? key,
     required this.events,
     required this.timetableStyle,
-  })  : 
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,10 @@ class LaneView extends StatelessWidget {
           ...[
             Positioned.fill(
               child: CustomPaint(
-                painter: BackgroundPainter(
-                  timetableStyle: timetableStyle,
-                ),
-              ),
+                  // painter: BackgroundPainter(
+                  //   timetableStyle: timetableStyle,
+                  // ),
+                  ),
             )
           ],
           ...events.map((event) {

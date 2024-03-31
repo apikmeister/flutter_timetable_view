@@ -30,7 +30,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: TimetableView(
         laneEventsList: _buildLaneEvents(),
-        timetableStyle: TimetableStyle(),
+        timetableStyle: TimetableStyle(
+          laneWidth: 50,
+          laneHeight: 50,
+          mainBackgroundColor: Colors.red,
+          // laneColor: Colors.purple,
+          timeItemTextColor: Colors.blue,
+          visibleTimeBorder: false,
+          startHour: 7,
+          endHour: 22,
+        ),
       ),
     );
   }
@@ -38,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<LaneEvents> _buildLaneEvents() {
     return [
       LaneEvents(
-        lane: Lane(name: 'Track A'),
+        lane: Lane(name: 'MON'),
         events: [
           TableEvent(
             title: 'An event 1',
@@ -53,7 +62,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       LaneEvents(
-        lane: Lane(name: 'Track B'),
+        lane: Lane(name: 'Sun'),
+        events: [
+          TableEvent(
+            title: 'An event 3',
+            start: TableEventTime(hour: 10, minute: 10),
+            end: TableEventTime(hour: 11, minute: 45),
+          ),
+        ],
+      ),
+      LaneEvents(
+        lane: Lane(name: 'Sun'),
         events: [
           TableEvent(
             title: 'An event 3',

@@ -38,6 +38,7 @@ class _TimetableViewState extends State<TimetableView>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Container(color: widget.timetableStyle.mainBackgroundColor),
         _buildCorner(),
         _buildMainContent(context),
         _buildTimelineList(context),
@@ -54,7 +55,9 @@ class _TimetableViewState extends State<TimetableView>
         width: widget.timetableStyle.timeItemWidth,
         height: widget.timetableStyle.laneHeight,
         child: DecoratedBox(
-          decoration: BoxDecoration(color: widget.timetableStyle.cornerColor),
+          decoration: BoxDecoration(
+              // color: widget.timetableStyle.cornerColor,
+              ),
         ),
       ),
     );
@@ -94,7 +97,7 @@ class _TimetableViewState extends State<TimetableView>
       alignment: Alignment.topLeft,
       width: widget.timetableStyle.timeItemWidth,
       padding: EdgeInsets.only(top: widget.timetableStyle.laneHeight),
-      color: widget.timetableStyle.timelineColor,
+      // color: widget.timetableStyle.timelineColor,
       child: ListView(
         physics: const ClampingScrollPhysics(),
         controller: verticalScrollController,
@@ -115,7 +118,7 @@ class _TimetableViewState extends State<TimetableView>
                   width: 0,
                 ),
               ),
-              color: widget.timetableStyle.timelineItemColor,
+              // color: widget.timetableStyle.timelineItemColor,
             ),
             child: Text(
               Utils.hourFormatter(hour, 0),
@@ -131,7 +134,7 @@ class _TimetableViewState extends State<TimetableView>
   Widget _buildLaneList(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      color: widget.timetableStyle.laneColor,
+      // color: widget.timetableStyle.laneColor,
       height: widget.timetableStyle.laneHeight,
       padding: EdgeInsets.only(left: widget.timetableStyle.timeItemWidth),
       child: ListView(
@@ -143,7 +146,7 @@ class _TimetableViewState extends State<TimetableView>
           return Container(
             width: laneEvents.lane.width,
             height: laneEvents.lane.height,
-            color: laneEvents.lane.backgroundColor,
+            // color: laneEvents.lane.backgroundColor,
             child: Center(
               child: Text(
                 laneEvents.lane.name,
